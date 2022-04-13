@@ -5,7 +5,7 @@ const Blog = (sequelize, DataTypes) => {
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   }, {
-    tableName: 'blogpost',
+    tableName: 'BlogPosts',
   });
 
   BlogPost.associate = (models) => {
