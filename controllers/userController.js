@@ -1,4 +1,4 @@
-const { createNewUser, getAll } = require('../service/userService');
+const { createNewUser, getAll, getById } = require('../service/userService');
 const { tokenCreate } = require('../middlewares/jwt');
 
 const create = async (req, res) => {
@@ -17,7 +17,18 @@ const getAllUsers = async (_req, res) => {
     return res.status(200).json(listUsers);
   };
 
+const getByIdUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = await getById(Number(id));
+    return res.status(200).json(userId);
+  } catch (error) {
+    return res.status(error.status).json({ message: error.message });
+  }
+};
+
 module.exports = {
   create,
   getAllUsers,
+  getByIdUser,
 };
