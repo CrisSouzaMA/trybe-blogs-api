@@ -1,13 +1,10 @@
 const postService = require('../service/postService');
 
-/* const getAll = async (_req, res) => {
-  try {
-    const allPosts = await postService.getAllPost();
+const getAll = async (req, res) => {
+    const { user } = req.user;
+    const allPosts = await postService.getAll(user);
     return res.status(200).json(allPosts);
-  } catch (error) {
-    return res.status(401).json({ message: 'error' });
-  }
-}; */
+};
 
  const create = async (req, res) => {
   try {
@@ -25,5 +22,5 @@ const postService = require('../service/postService');
 
 module.exports = {
   create,
- // getAll,
+  getAll,
 };

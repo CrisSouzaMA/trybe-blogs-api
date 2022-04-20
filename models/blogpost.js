@@ -1,4 +1,4 @@
-const Blog = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define('BlogPost', {
     userId: DataTypes.INTEGER,
     title: DataTypes.STRING,
@@ -12,10 +12,8 @@ const Blog = (sequelize, DataTypes) => {
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, 
-      { foreignKey: 'id', as: 'users' });
+      { foreignKey: 'id', as: 'user' });
   };
 
   return BlogPost;
 };
-
-module.exports = Blog;
