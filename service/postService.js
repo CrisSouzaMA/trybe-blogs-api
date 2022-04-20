@@ -1,4 +1,4 @@
-const { BlogPost, Category, PostCategory, User } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 const checkValidationsPost = require('../schemas/validateJoiPost');
 
 function getError(status, message) {
