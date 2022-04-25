@@ -6,6 +6,16 @@ const getAll = async (req, res) => {
     return res.status(200).json(allPosts);
 };
 
+const getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const postId = await postService.getPostById(Number(id));
+    return res.status(200).json(postId);
+  } catch (error) {
+    return res.status(error.status).json({ message: error.message });
+  }
+};
+
  const create = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
@@ -23,4 +33,5 @@ const getAll = async (req, res) => {
 module.exports = {
   create,
   getAll,
+  getById,
 };

@@ -14,6 +14,17 @@ const getAll = async () => {
   return getAllPost;
 };
 
+const getPostById = async (id) => {
+  const getPostId = await BlogPost.findOne({ where: { id },
+    include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+});
+if (!getPostId) throw getError(404, 'Post does not exist');
+  return getPostId;
+};
+
 const createNewPost = async ({ title, content, categoryIds, userId }) => {
   const { error } = checkValidationsPost.validate({ title, content, categoryIds, userId });
   if (error) throw getError(400, error.message); // checa se os parametros estao corretos
@@ -42,4 +53,5 @@ const createNewPost = async ({ title, content, categoryIds, userId }) => {
 module.exports = {
   createNewPost,
   getAll,
+  getPostById,
 };
