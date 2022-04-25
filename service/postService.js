@@ -5,23 +5,20 @@ function getError(status, message) {
   return { status, message };
 }
 
+const include = [
+  { model: User, as: 'user', attributes: { exclude: ['password'] } },
+  { model: Category, as: 'categories', through: { attributes: [] } },
+];
+
 const getAll = async () => {
-  const getAllPost = await BlogPost.findAll({ include: [
-    { model: User, as: 'user', attributes: { exclude: ['password'] } },
-    { model: Category, as: 'categories', through: { attributes: [] } },
-  ],
-});
+  const getAllPost = await BlogPost.findAll({ include });
   return getAllPost;
 };
 
 const getPostById = async (id) => {
   const getPostId = await BlogPost.findOne({ where: { id },
-    include: [
-    { model: User, as: 'user', attributes: { exclude: ['password'] } },
-    { model: Category, as: 'categories', through: { attributes: [] } },
-  ],
-});
-if (!getPostId) throw getError(404, 'Post does not exist');
+    include });
+  if (!getPostId) throw getError(404, 'Post does not exist');
   return getPostId;
 };
 
