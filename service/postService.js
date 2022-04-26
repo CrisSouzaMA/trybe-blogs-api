@@ -19,6 +19,7 @@ const getPostById = async (id) => {
   try {
     const getPostId = await BlogPost.findOne({ where: { id },
       include });
+      if (!getPostId) throw getError(404, 'Post does not exist');
       return getPostId;
   } catch (error) {
     throw getError(404, 'Post does not exist');
