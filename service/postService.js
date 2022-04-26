@@ -16,13 +16,10 @@ const getAll = async () => {
 };
 
 const getPostById = async (id) => {
-  try {
-    const getPostId = await BlogPost.findOne({ where: { id },
-      include });
-      return getPostId;
-  } catch (error) {
-    throw getError(404, 'Post does not exist');
-  }
+  const getPostId = await BlogPost.findOne({ where: { id },
+    include });
+  if (!getPostId) throw getError(404, 'Post does not exist');
+  return getPostId;
 };
 
 const createNewPost = async ({ title, content, categoryIds, userId }) => {

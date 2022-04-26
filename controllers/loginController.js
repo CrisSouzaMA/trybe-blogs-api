@@ -8,6 +8,7 @@ const loginUser = async (req, res) => {
     const token = tokenCreate(checkLoginUser);
     return res.status(200).json({ token });
   } catch (error) {
+    console.log(error);
     return res.status(error.status).json({ message: error.message });
   }
 };
