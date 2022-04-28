@@ -3,7 +3,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
 const jwtconfig = {
-  expiresIn: '1h',
+  expiresIn: '1d',
   algorithm: 'HS256',
 };
 
@@ -21,7 +21,17 @@ const decoded = (token) => {
   }
 };
 
+const checkUser = (user) => {
+  try {
+    const checkIdUser = decoded(user);
+    if (checkIdUser.data.id === user) return checkIdUser;
+  } catch (e) {
+    return false;
+  }
+};
+
 module.exports = {
   tokenCreate,
   decoded,
+  checkUser,
 };
