@@ -42,9 +42,23 @@ const updatePost = async (req, res) => {
   }
 };
 
+const destroyPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.data.id;
+    // console.log('userId', userId, typeof userId);
+    await postService.destroyPost(Number(userId), Number(id));
+    return res.status(204).end();
+  } catch (error) {
+    console.log(error);
+    return res.status(error.status).json({ message: error.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updatePost,
+  destroyPost,
 };

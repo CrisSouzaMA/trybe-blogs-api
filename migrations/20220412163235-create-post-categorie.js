@@ -9,6 +9,7 @@ module.exports = {
           key: 'id',
         },
         primaryKey: true,
+        onDelete: 'CASCADE',
       },
       categoryId: {
         type: Sequelize.INTEGER,

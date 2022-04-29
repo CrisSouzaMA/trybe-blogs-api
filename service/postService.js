@@ -76,9 +76,21 @@ const createNewPost = async ({ title, content, categoryIds, userId }) => {
   return newPost;
 };
 
+const destroyPost = async (user, id) => {
+  console.log('user', user, typeof user);
+  const getPost = await BlogPost.findByPk(id);
+  if (!getPost) throw getError(404, 'Post does not exist');
+  if (user !== getPost.dataValues.userId) throw getError(401, 'Unauthorized user');
+
+  await BlogPost.destroy({ 
+    where: { userId: user, id },
+  });
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getPostById,
   updatePost,
+  destroyPost,
 };
