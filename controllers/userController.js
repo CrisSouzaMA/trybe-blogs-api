@@ -1,4 +1,4 @@
-const { createNewUser, getAll, getById } = require('../service/userService');
+const { createNewUser, getAll, getById, deleteUser } = require('../service/userService');
 const { tokenCreate } = require('../middlewares/jwt');
 
 const create = async (req, res) => {
@@ -27,8 +27,16 @@ const getByIdUser = async (req, res) => {
   }
 };
 
+const deleteUserById = async (req, res) => {
+  const userId = req.user.data.id;
+  console.log('user', userId, typeof userId);
+  await deleteUser(userId);
+  return res.status(204).end();
+};
+
 module.exports = {
   create,
   getAllUsers,
   getByIdUser,
+  deleteUserById,
 };

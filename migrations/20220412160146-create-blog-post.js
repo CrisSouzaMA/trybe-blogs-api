@@ -21,6 +21,7 @@ module.exports = {
           key: 'id',
         },
         primaryKey: true,
+        onDelete: 'CASCADE',
       },
       published: {
         allowNull: false,

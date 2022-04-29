@@ -21,7 +21,7 @@ const getAll = async () => {
   const getAllUsers = await User.findAll({
     attributes: { exclude: ['password'] },
   });
-  
+
   return getAllUsers;
 };
 
@@ -36,8 +36,14 @@ const getById = async (id) => {
   return getUserById;
 };
 
+const deleteUser = async (userId) => {
+  await User.destroy({ where: { id: userId },
+  });
+};
+
 module.exports = {
   createNewUser,
   getAll,
   getById,
+  deleteUser,
 };
