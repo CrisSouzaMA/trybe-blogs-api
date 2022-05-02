@@ -1,8 +1,7 @@
 const postService = require('../service/postService');
 
-const getAll = async (req, res) => {
-    const { user } = req.user;
-    const allPosts = await postService.getAll(user);
+const getAll = async (_req, res) => {
+    const allPosts = await postService.getAll();
     return res.status(200).json(allPosts);
 };
 
@@ -55,10 +54,17 @@ const destroyPost = async (req, res) => {
   }
 };
 
+const searchPost = async (req, res) => {
+  const { q } = req.query;
+  const post = await postService.searchPost(q);
+  return res.status(200).json(post);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   updatePost,
   destroyPost,
+  searchPost,
 };

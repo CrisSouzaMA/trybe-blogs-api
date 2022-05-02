@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, User } = require('../models');
 const { checkValidationsPost, checkUpdatePost } = require('../schemas/validateJoiPost');
 // const { checkUser } = require('../middlewares/jwt');
@@ -87,10 +88,28 @@ const destroyPost = async (user, id) => {
   });
 };
 
+const searchPost = async (query) => {
+  console.log('query', query, typeof query);
+  if (!query) {
+    const posts = await getAll();
+    return posts;
+  }
+
+  const postList = await BlogPost.findAll({
+    where: {
+      [Op.or]: [{ title: { [Op.like]: `%${query}%` } }, { content: { [Op.like]: `%${query}%` } }],
+    },
+    include,
+  });
+
+  return postList || [];
+};
+
 module.exports = {
   createNewPost,
   getAll,
   getPostById,
   updatePost,
   destroyPost,
+  searchPost,
 };
